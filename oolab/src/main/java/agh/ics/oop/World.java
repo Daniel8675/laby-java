@@ -1,19 +1,7 @@
 package agh.ics.oop;
 
-import java.util.Map;
-
 public class World {
     public static  void main(String[] args){
-        ////////////////////////////////////////////////////////
-        // LAB 1
-
-        /*String[] directions = {"f","f","r","l","b","f","l"};
-        System.out.println("Start");
-        Direction[] tab = changed(directions);
-        run(tab);
-        System.out.println("Stop");*/
-
-        //////////////////////////////////////////////////////
 
         Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
