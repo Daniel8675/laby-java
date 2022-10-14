@@ -1,12 +1,31 @@
 package agh.ics.oop;
 
+import java.util.Map;
+
 public class World {
-    public static void main(String[] args){
-        String[] directions = {"f","f","r","l","b","f","l"};
+    public static  void main(String[] args){
+        ////////////////////////////////////////////////////////
+        // LAB 1
+
+        /*String[] directions = {"f","f","r","l","b","f","l"};
         System.out.println("Start");
         Direction[] tab = changed(directions);
         run(tab);
-        System.out.println("Stop");
+        System.out.println("Stop");*/
+
+        //////////////////////////////////////////////////////
+
+        /*Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));*/
+
+        System.out.println(MapDirection.SOUTH.toUnitVector());
+
+
+
+
     }
 
     public static void run(Direction[] directions){
