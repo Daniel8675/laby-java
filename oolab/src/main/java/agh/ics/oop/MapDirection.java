@@ -1,7 +1,5 @@
 package agh.ics.oop;
 
-import java.util.Map;
-
 public enum MapDirection {
     NORTH,
     SOUTH,
@@ -9,44 +7,39 @@ public enum MapDirection {
     EAST;
 
     public String toString() {
-        switch (this) {
-            case NORTH: return  "Polnoc";
-            case SOUTH: return  "Poludnie";
-            case WEST:  return  "Zachod";
-            case EAST:  return  "Wschod";
-
-        }
-        return null;
+        return switch (this) {
+            case NORTH -> "Polnoc";
+            case SOUTH -> "Poludnie";
+            case WEST -> "Zachod";
+            case EAST -> "Wschod";
+        };
     }
 
     public MapDirection next() {
-        switch (this) {
-            case NORTH: return EAST;
-            case EAST:  return SOUTH;
-            case SOUTH: return WEST;
-            case WEST:  return NORTH;
-        }
-        return null;
+        return switch (this) {
+            case NORTH -> EAST;
+            case EAST -> SOUTH;
+            case SOUTH -> WEST;
+            case WEST -> NORTH;
+        };
     }
 
     public MapDirection previous() {
-        switch (this) {
-            case NORTH: return WEST;
-            case EAST:  return NORTH;
-            case SOUTH: return EAST;
-            case WEST:  return SOUTH;
-        }
-        return null;
+        return switch (this) {
+            case NORTH -> WEST;
+            case EAST -> NORTH;
+            case SOUTH -> EAST;
+            case WEST -> SOUTH;
+        };
     }
 
     public Vector2d toUnitVector() {
-        switch (this) {
-            case NORTH: return new Vector2d(0, 1);
-            case EAST:  return new Vector2d(1, 0);
-            case SOUTH: return new Vector2d(0, -1);
-            case WEST:  return new Vector2d(-1, 0);
-        }
-        return null;
+        return switch (this) {
+            case NORTH -> new Vector2d(0, 1);
+            case EAST -> new Vector2d(1, 0);
+            case SOUTH -> new Vector2d(0, -1);
+            case WEST -> new Vector2d(-1, 0);
+        };
     }
 }
 
