@@ -13,14 +13,14 @@ class Vector2dTest {
     }
 
     @Test
-    void toStringVector2dTest(){
+    void toStringVector2d(){
         String test = "(1,2)";
         var position = new Vector2d(1,2);
         assertEquals(test, position.toString() );
     }
 
     @Test
-    void precedesVector2dTest() {
+    void precedesVector2d() {
         var position1 = new Vector2d(1,2);
         var position2 = new Vector2d(2, 3);
 
@@ -31,7 +31,7 @@ class Vector2dTest {
     }
 
     @Test
-    void followsVector2dTest() {
+    void followsVector2d() {
         var position1 = new Vector2d(7,9);
         var position2 = new Vector2d(5, 5);
 
@@ -42,7 +42,7 @@ class Vector2dTest {
     }
 
     @Test
-    void upperRightVector2dTest() {
+    void upperRightVector2d() {
         var position1 = new Vector2d(7,2);
         var position2 = new Vector2d(0,5);
         var position3 = new Vector2d(7,5);
@@ -50,7 +50,7 @@ class Vector2dTest {
     }
 
     @Test
-    void lowerLeftVector2dTest() {
+    void lowerLeftVector2d() {
         var position1 = new Vector2d(7,2);
         var position2 = new Vector2d(0,5);
         var position3 = new Vector2d(0,2);
@@ -58,7 +58,7 @@ class Vector2dTest {
     }
 
     @Test
-    void addVector2dTest() {
+    void addVector2d() {
         var position1 = new Vector2d(3,7);
         var position2 = new Vector2d(7,3);
         var position3 = new Vector2d(10,10);
@@ -66,7 +66,7 @@ class Vector2dTest {
     }
 
     @Test
-    void subtractVector2dTest() {
+    void subtractVector2d() {
         var position1 = new Vector2d(3,7);
         var position2 = new Vector2d(7,3);
         var position3 = new Vector2d(-4,4);
@@ -74,7 +74,7 @@ class Vector2dTest {
     }
 
     @Test
-    void oppositeVector2dTest() {
+    void oppositeVector2d() {
         var position1 = new Vector2d(0, -5);
         var position2 = new Vector2d(0, 5);
         assertEquals(position1, position2.opposite());
