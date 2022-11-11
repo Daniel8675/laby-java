@@ -2,23 +2,17 @@ package agh.ics.oop;
 
 public class World {
     public static  void main(String[] args){
-        /*
-        Mechanizm wykluczajacy znalezienia sie dwoch zwierzat na danej pozycji mozna zaimplemenotwac w sposob taki
-        aby przed wykonaniem kroku za pomoca metody move wywowlac funkcje isAt i sprawdzic czy dane pole jest
-        "puste" to znaczy nie zajmuje go inny obiekt z klasy Animals.
-        Bez uzycia metody isAt mozna stworzyc 2 wymiarowa tablice ktora bedzie reprezentowala nasz obszar 4 na 4
-        znajdujacy sie na osi. Teraz wystarczy tylko w momencie kroku stawiac wartosc 1 na zajmowana pozycje oraz
-        0 na poprzednia pozycje. Oczywiscie trzeba pamietac ze krok mozliwy jest wtedy gdy pozycja na ktora chcemy
-        stanac ma wartosc 0.
-         */
+
         Animal animal = new Animal();
-        System.out.println(animal);
-        String[] test = new String[] {"right","forward","b","b","r","b","backward","b","l","f","ala","ola","ela","franek"};
-        MoveDirection[] moves = OptionsParser.parse(test);
-        for(MoveDirection Move : moves){
-            animal.move(Move);
-            System.out.println(animal);
-        }
+//        System.out.println(animal);
+//        String[] test = new String[] {"right","forward","b","b","r","b","backward","b","l","f","ala","ola","ela","franek"};
+//        MoveDirection[] moves = OptionsParser.parse(test);
+//        for(MoveDirection Move : moves){
+//            animal.move(Move);
+//            System.out.println(animal);
+//        }
+
+        System.out.println(animal.canMoveTo(new Vector2d(3,4)));
     }
 
     public static void run(MoveDirection[] directions){
