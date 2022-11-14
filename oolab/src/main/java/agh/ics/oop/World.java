@@ -3,7 +3,18 @@ package agh.ics.oop;
 public class World {
     public static  void main(String[] args){
 
-        Animal animal = new Animal();
+//        RectangularMap map = new RectangularMap(4, 4);
+//        Animal animal1 = new Animal(map, new Vector2d(4,1));
+//        Animal animal2 = new Animal(map, new Vector2d(4,2));
+//        Animal animal3 = new Animal(map, new Vector2d(4,3));
+//        Animal animal4 = new Animal(map, new Vector2d(4,4));
+//
+//        RectangularMap map2 = new RectangularMap(10, 10);
+//        Animal animal5 = new Animal(map2, new Vector2d(3,1));
+//        Animal animal6 = new Animal(map2, new Vector2d(3,2));
+//        Animal animal7 = new Animal(map2, new Vector2d(3,3));
+//        Animal animal8 = new Animal(map2, new Vector2d(3,4));
+
 //        System.out.println(animal);
 //        String[] test = new String[] {"right","forward","b","b","r","b","backward","b","l","f","ala","ola","ela","franek"};
 //        MoveDirection[] moves = OptionsParser.parse(test);
@@ -11,8 +22,24 @@ public class World {
 //            animal.move(Move);
 //            System.out.println(animal);
 //        }
+//        System.out.println("START:");
+//        System.out.println(map.isOccupied(new Vector2d(3,2)));
+//        System.out.println(map.objectAt(new Vector2d(4,2)));
+//        System.out.println(map.objectAt(new Vector2d(4,3)));
+//        System.out.println(map.objectAt(new Vector2d(4,4)));
+//
+//        Animal animal9 = new Animal(map);
+//        map2.place(animal9);
+//        System.out.println(map2.isOccupied(new Vector2d(0,0)));
 
-        System.out.println(animal.canMoveTo(new Vector2d(3,4)));
+        String[] args1 = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+
+        MoveDirection[] directions = OptionsParser.parse(args1);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        System.out.println(map);
     }
 
     public static void run(MoveDirection[] directions){

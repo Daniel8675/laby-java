@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.OptionsParserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-09T20:54:09" hostname="LAPTOP-2NEOC43S" time="0.023">
-  <properties/>
-  <testcase name="FirstArray()" classname="agh.ics.oop.OptionsParserTest" time="0.022"/>
-  <testcase name="SecondArray()" classname="agh.ics.oop.OptionsParserTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
