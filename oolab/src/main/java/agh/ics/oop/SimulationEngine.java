@@ -1,6 +1,5 @@
 package agh.ics.oop;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,30 +12,22 @@ public class SimulationEngine implements IEngine{
         this.directions = directions;
         this.map = map;
         this.positions = positions;
-
-        for(Vector2d position: positions){
-            this.map.place(new Animal(this.map, position));
-        }
     }
 
     @Override
     public void run() {
-        List<Animal> animals_with_this_map = new ArrayList<>();
-
-        for (Animal animal: Animal.animals){
-            if(animal.map.equals(this.map)){
-                animals_with_this_map.add(animal);
+        ArrayList<Animal> animals = new ArrayList<Animal>();
+        for (Vector2d position: positions) {
+            Animal newAnimal = new Animal(map, position);
+            if (map.place(newAnimal)) {
+                animals.add(newAnimal);
             }
         }
-
-        int i = 0;
-        for (MoveDirection direction: directions){
-            // System.out.println(this.map);
-            if( i == animals_with_this_map.size()){
-                i = 0;
-            }
-            animals_with_this_map.get(i).move(direction);
-            i += 1;
+        int current = 0;
+        for (MoveDirection direction: directions) {
+            animals.get(current).move(direction);
+            current += 1;
+            current = current % animals.size();
         }
     }
 }

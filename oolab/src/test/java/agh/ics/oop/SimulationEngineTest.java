@@ -20,7 +20,7 @@ class SimulationEngineTest {
         engine.run();
 
         List<Animal> animals_with_this_map = new ArrayList<>();
-        for(Animal animal: Animal.animals){
+        for(Animal animal: map.getAnimals()){
             if(animal.map.equals(map)){
                 animals_with_this_map.add(animal);
             }
@@ -44,7 +44,7 @@ class SimulationEngineTest {
         engine.run();
 
         List<Animal> animals_with_this_map = new ArrayList<>();
-        for (Animal animal : Animal.animals) {
+        for (Animal animal : map.getAnimals()) {
             if (animal.map.equals(map)) {
                 animals_with_this_map.add(animal);
             }
