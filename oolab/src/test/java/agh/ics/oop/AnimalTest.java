@@ -50,8 +50,8 @@ class AnimalTest {
     @Test
     void TwoLeftTurnsFromNorth() {
         Animal animal = new Animal();
-        animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.LEFT);
+        animal.move(MoveDirection.LEFT);
         assertEquals(MapDirection.SOUTH, animal.getOrientation());
     }
 
@@ -126,7 +126,7 @@ class AnimalTest {
         animal.move(MoveDirection.BACKWARD);
         animal.move(MoveDirection.BACKWARD);
         animal.move(MoveDirection.BACKWARD);
-        assertEquals(new Vector2d(2,-4), animal.getPosition());
+        assertEquals(new Vector2d(2,0), animal.getPosition());
     }
 
     @Test
@@ -175,12 +175,12 @@ class AnimalTest {
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(-4,2), animal.getPosition());
+        assertEquals(new Vector2d(0,2), animal.getPosition());
     }
 
     @Test
     void isAt(){
         Animal animal = new Animal();
-        assertEquals(true,animal.isAt(new Vector2d(2,2)));
+        assertTrue(animal.isAt(new Vector2d(2, 2)));
     }
 }
