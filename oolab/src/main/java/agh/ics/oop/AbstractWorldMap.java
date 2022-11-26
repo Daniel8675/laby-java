@@ -1,32 +1,13 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-public abstract class AbstractWorldMap implements IWorldMap {
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
-    protected Vector2d LOWER_BOUND;
-    protected Vector2d UPPER_BOUND;
-    protected Vector2d PRINT_LOWER_BOUND;
-    protected Vector2d PRINT_UPPER_BOUND;
-    protected ArrayList<Animal> animals = new ArrayList<>();
+    protected static Map<Vector2d, Animal> animals= new HashMap<>();
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
-        if (!isOccupied(position)){
-            return position.follows(LOWER_BOUND) && position.precedes(UPPER_BOUND);
-        }
-        else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return animals.stream()
-                      .anyMatch(animal -> animal.isAt(position));
-    }
+    abstract public boolean canMoveTo(Vector2d position);
 
     @Override
     public boolean place(Animal animal) {
@@ -36,21 +17,36 @@ public abstract class AbstractWorldMap implements IWorldMap {
         if (isOccupied(animal.getPosition()) && (objectAt(animal.getPosition()) instanceof Animal)) {
             return false;
         }
-        this.animals.add(animal);
+        animals.put(animal.getPosition(), animal);
+        animal.addObserver(this);
+
         return true;
     }
 
     @Override
     public String toString() {
-        MapVisualizer visualization = new MapVisualizer(this);
-        setPrintBounds();
-        return visualization.draw(this.PRINT_LOWER_BOUND, this.PRINT_UPPER_BOUND);
+        MapVisualizer visualizer = new MapVisualizer(this);
+        return visualizer.draw(calculateLowerBound(), calculateUpperBound());
     }
 
-    abstract public void setPrintBounds();
-
-    public List<Animal> getAnimals() {
-        return Collections.unmodifiableList(animals);
+    @Override
+    public Object objectAt(Vector2d position) {
+        return animals.get(position);
     }
+
+    @Override
+    public boolean isOccupied(Vector2d position) {
+        return animals.get(position) != null;
+    }
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        animals.put(newPosition, animals.get(oldPosition));
+        animals.remove(oldPosition);
+    }
+
+
+    abstract protected Vector2d calculateLowerBound();
+
+    abstract protected Vector2d calculateUpperBound();
 
 }

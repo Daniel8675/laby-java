@@ -1,23 +1,21 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap {
-    private final int grass_counter;
-    private final Vector2d LOWER_GRASS_BOUND;
     private final Vector2d UPPER_GRASS_BOUND;
-    private final ArrayList<Grass> grass_list = new ArrayList<>();
+    private final HashMap<Vector2d, Grass> grass_list = new HashMap<>();
+    //get pobieranie z mapy zwraca wartosc lub null
+    //put containskey
+    //keyset przechodzimy po zbiorze kluczy
+    //.entryset
+    //values zwraca wartosci tutaj sa kolekcja
+    //wzorzec projektowy obserwator
 
     public GrassField(int grass_counter){
-        this.grass_counter = grass_counter;
-
-        this.LOWER_GRASS_BOUND = new Vector2d(0 ,0);
         this.UPPER_GRASS_BOUND = new Vector2d((int)Math.sqrt(grass_counter * 10), (int)Math.sqrt(grass_counter * 10));
-
-        this.LOWER_BOUND = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        this.UPPER_BOUND = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         for(int i = 0; i < grass_counter; i++ ){
             placeGrass();
@@ -39,59 +37,53 @@ public class GrassField extends AbstractWorldMap {
             newLocation = new Vector2d(x, y);
         } while (isOccupied(newLocation));
 
-        grass_list.add(new Grass(newLocation));
+        grass_list.put(newLocation, new Grass(newLocation));
     }
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal animal: this.animals) {
-            if (animal.isAt(position)) {
-                return animal;
-            }
+        Object foundObject = super.objectAt(position);
+        if (foundObject == null) {
+            foundObject = grass_list.get(position);
         }
-        for (Grass grass: this.grass_list) {
-            if (position.equals(grass.getPosition())) {
-                return grass;
-            }
-        }
-        return null;
+        return foundObject;
     }
     @Override
-    public boolean isOccupied(Vector2d position){
-        if (super.isOccupied(position)){
+    public boolean isOccupied(Vector2d position) {
+        if (super.isOccupied(position)) {
             return true;
         }
-        for (Grass grass: this.grass_list) {
-            if (position.equals(grass.getPosition())){
-                return true;
-            }
-        }
-        return false;
+        return (grass_list.get(position) != null);
     }
-    public void setPrintBounds() {
-        if (!animals.isEmpty()) {
-            this.PRINT_LOWER_BOUND = this.PRINT_UPPER_BOUND = animals.get(0).getPosition();
-        } else if (!grass_list.isEmpty()) {
-            this.PRINT_LOWER_BOUND = this.PRINT_UPPER_BOUND = grass_list.get(0).getPosition();
-        } else {
-            this.PRINT_LOWER_BOUND = new Vector2d(0,0);
-            this.PRINT_UPPER_BOUND = new Vector2d(0,0);
-            return;
-        }
-        for (Animal animal: animals) {
-            this.PRINT_LOWER_BOUND = this.PRINT_LOWER_BOUND.lowerLeft(animal.getPosition());
-            this.PRINT_UPPER_BOUND = this.PRINT_UPPER_BOUND.upperRight(animal.getPosition());
-        }
-        for (Grass grass: grass_list) {
-            this.PRINT_LOWER_BOUND = this.PRINT_LOWER_BOUND.lowerLeft(grass.getPosition());
-            this.PRINT_UPPER_BOUND = this.PRINT_UPPER_BOUND.upperRight(grass.getPosition());
-        }
+    public boolean canMoveTo(Vector2d position){
+        Object obj = this.objectAt(position);
+        return obj == null || obj instanceof Grass;
     }
 
-    public int getGrass_counter() {
-        return grass_counter;
+    @Override
+    protected Vector2d calculateLowerBound() {
+        Vector2d LOWER_BOUND = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+        for (Animal animal: animals.values()){
+            LOWER_BOUND = LOWER_BOUND.lowerLeft(animal.getPosition());
+        }
+
+        for (Grass grass: grass_list.values()){
+            LOWER_BOUND = LOWER_BOUND.lowerLeft(grass.getPosition());
+        }
+        return LOWER_BOUND;
     }
 
-    public Vector2d getLOWER_GRASS_BOUND() {
-        return LOWER_GRASS_BOUND;
+    @Override
+    protected Vector2d calculateUpperBound() {
+        Vector2d UPPER_BOUND = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+        for (Animal animal: animals.values()){
+            UPPER_BOUND = UPPER_BOUND.upperRight(animal.getPosition());
+        }
+
+        for (Grass grass: grass_list.values()){
+            UPPER_BOUND = UPPER_BOUND.upperRight(grass.getPosition());
+        }
+        return UPPER_BOUND;
     }
 }
