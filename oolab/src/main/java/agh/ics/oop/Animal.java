@@ -60,21 +60,21 @@ public class Animal{
 
 
         if (this.map.canMoveTo(newPosition)){
-            positionChanged(position, newPosition);
+            this.positionChanged(position, newPosition);
             position = newPosition;
         }
 
     }
 
-    void addObserver(IPositionChangeObserver observer) {
+    public void addObserver(IPositionChangeObserver observer) {
         observers_list.add(observer);
     }
 
-    void removeObserver(IPositionChangeObserver observer) {
+    public void removeObserver(IPositionChangeObserver observer) {
         observers_list.remove(observer);
     }
 
-    void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+    private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         for (IPositionChangeObserver observer: observers_list) {
             observer.positionChanged(oldPosition, newPosition);
         }

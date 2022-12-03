@@ -13,14 +13,19 @@ public class RectangularMapTest {
 
     @Test
     void placeTest() {
-        IWorldMap map = new RectangularMap(10, 10);
-        Vector2d position = new Vector2d(5,5);
-        Animal animal = new Animal(map, position);
-        Assertions.assertTrue(map.place(animal));
+        IWorldMap map = new RectangularMap(4, 4);
+        Vector2d position = new Vector2d(2,3);
 
-        position = new Vector2d(20,20);
-        animal = new Animal(map, position);
-        Assertions.assertFalse(map.place(animal));
+        Animal ant = new Animal(map, position);
+        Animal bee = new Animal(map, new Vector2d(4, 6));
+        Animal cat = new Animal(map, position);
+
+        Assertions.assertTrue(map.place(ant));
+
+        Exception exceptionOne = Assertions.assertThrows(IllegalArgumentException.class, () ->  map.place(bee) );
+        Assertions.assertEquals("position (4,6) is out of bounds", exceptionOne.getMessage());
+        Exception exceptionTwo = Assertions.assertThrows(IllegalArgumentException.class, () -> map.place(cat) );
+        Assertions.assertEquals("position (2,3) is occupied", exceptionTwo.getMessage());
     }
 
     @Test

@@ -18,12 +18,12 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     @Override
-    protected Vector2d calculateLowerBound() {
+    public Vector2d calculateLowerBound() {
         return LOWER_BOUND;
     }
 
     @Override
-    protected Vector2d calculateUpperBound() {
+    public Vector2d calculateUpperBound() {
         return UPPER_BOUND;
     }
 
