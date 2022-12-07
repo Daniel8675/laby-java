@@ -2,18 +2,17 @@ package agh.ics.oop;
 
 public class World {
     public static  void main(String[] args){
-
-        String[] args1 = new String[]{"f", "b"};
+        String[] args1 = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
 
         IWorldMap map = new GrassField(12);
         MoveDirection[] direction = OptionsParser.parse(args1);
-        Vector2d[] position = { new Vector2d(2,2), new Vector2d(3,4) };
+        Vector2d[] position = { new Vector2d(0,0), new Vector2d(4,4) };
         SimulationEngine engine = new SimulationEngine(direction, map, position);
         engine.run();
         System.out.println(map);
     }
 
-    public static void run(MoveDirection[] directions){
+/*    public static void run(MoveDirection[] directions){
         for(MoveDirection direction : directions) {
             String msg = switch (direction) {
                 case FORWARD -> "Zwierzak idzie do przodu";
@@ -24,6 +23,7 @@ public class World {
             System.out.println(msg);
         }
     }
+
     public static MoveDirection[] changed(String[] directions){
         MoveDirection[] ans = new MoveDirection[directions.length];
         for(int i = 0; i < directions.length; i++){
@@ -36,4 +36,6 @@ public class World {
         }
         return ans;
     }
+
+ */
 }

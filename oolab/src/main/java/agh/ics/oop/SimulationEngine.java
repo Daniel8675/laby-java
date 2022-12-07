@@ -1,7 +1,6 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SimulationEngine implements IEngine{
     protected MoveDirection[] directions;
@@ -16,7 +15,7 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
-        ArrayList<Animal> animals = new ArrayList<Animal>();
+        ArrayList<Animal> animals = new ArrayList<>();
         for (Vector2d position: positions) {
             Animal newAnimal = new Animal(map, position);
             if (map.place(newAnimal)) {

@@ -1,39 +1,33 @@
 package agh.ics.oop;
 
-import java.util.*;
+public class RectangularMap extends AbstractWorldMap {
+    private final Vector2d LOWER_BOUND;
+    private final Vector2d UPPER_BOUND;
 
-public class RectangularMap extends AbstractWorldMap{
-    private final int width;
-    private final int height;
-
-    public RectangularMap(int width, int height){
-        this.width = width;
-        this.height = height;
-        this.LOWER_BOUND = new Vector2d(0 ,0);
+    public RectangularMap(int width, int height) {
+        this.LOWER_BOUND = new Vector2d(0, 0);
         this.UPPER_BOUND = new Vector2d(width, height);
     }
 
-    @Override
-    public Object objectAt(Vector2d position) {
-        return animals.stream()
-                .filter(animal -> animal.isAt(position))
-                .findFirst()
-                .orElse(null);
+    public boolean canMoveTo(Vector2d position) {
+        if (!isOccupied(position)) {
+            return position.follows(calculateLowerBound()) && position.precedes(calculateUpperBound());
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void setPrintBounds() {
-        PRINT_LOWER_BOUND = this.LOWER_BOUND;
-        PRINT_UPPER_BOUND = this.UPPER_BOUND;
+    protected Vector2d calculateLowerBound() {
+        return LOWER_BOUND;
     }
 
-    public int getWidth() {
-        return width;
+    @Override
+    protected Vector2d calculateUpperBound() {
+        return UPPER_BOUND;
     }
 
-    public int getHeight() {
-        return height;
-    }
+}
 
 //    @Override
 //    public boolean isOccupied(Vector2d position) {
@@ -41,4 +35,4 @@ public class RectangularMap extends AbstractWorldMap{
 //    //      return animals.stream()
 //    //                .anyMatch(animal -> animal.isAt(position));
 //    }
-}
+
