@@ -1,21 +1,16 @@
 package agh.ics.oop;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap {
     private final Vector2d UPPER_GRASS_BOUND;
-    private final HashMap<Vector2d, Grass> grass_list = new HashMap<>();
-    //get pobieranie z mapy zwraca wartosc lub null
-    //put containskey
-    //keyset przechodzimy po zbiorze kluczy
-    //.entryset
-    //values zwraca wartosci tutaj sa kolekcja
-    //wzorzec projektowy obserwator
+    private final Vector2d LOWER_GRASS_BOUND;
+    private final HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
 
     public GrassField(int grass_counter){
         this.UPPER_GRASS_BOUND = new Vector2d((int)Math.sqrt(grass_counter * 10), (int)Math.sqrt(grass_counter * 10));
+        this.LOWER_GRASS_BOUND = new Vector2d(0 ,0);
 
         for(int i = 0; i < grass_counter; i++ ){
             placeGrass();
@@ -37,13 +32,13 @@ public class GrassField extends AbstractWorldMap {
             newLocation = new Vector2d(x, y);
         } while (isOccupied(newLocation));
 
-        grass_list.put(newLocation, new Grass(newLocation));
+        grassHashMap.put(newLocation, new Grass(newLocation));
     }
     @Override
     public Object objectAt(Vector2d position) {
         Object foundObject = super.objectAt(position);
         if (foundObject == null) {
-            foundObject = grass_list.get(position);
+            foundObject = grassHashMap.get(position);
         }
         return foundObject;
     }
@@ -52,7 +47,7 @@ public class GrassField extends AbstractWorldMap {
         if (super.isOccupied(position)) {
             return true;
         }
-        return (grass_list.get(position) != null);
+        return (grassHashMap.get(position) != null);
     }
     public boolean canMoveTo(Vector2d position){
         Object obj = this.objectAt(position);
@@ -60,30 +55,33 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    protected Vector2d calculateLowerBound() {
-        Vector2d LOWER_BOUND = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-
-        for (Animal animal: animals.values()){
-            LOWER_BOUND = LOWER_BOUND.lowerLeft(animal.getPosition());
-        }
-
-        for (Grass grass: grass_list.values()){
-            LOWER_BOUND = LOWER_BOUND.lowerLeft(grass.getPosition());
-        }
-        return LOWER_BOUND;
+    public Vector2d calculateLowerBound() {
+        return bounds.getLowerBoundaries();
+//        Vector2d LOWER_BOUND = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+//
+//        for (Animal animal: animals.values()){
+//            LOWER_BOUND = LOWER_BOUND.lowerLeft(animal.getPosition());
+//        }
+//
+//        for (Grass grass: grassHashMap.values()){
+//            LOWER_BOUND = LOWER_BOUND.lowerLeft(grass.getPosition());
+//        }
+//        return LOWER_BOUND;
     }
 
     @Override
-    protected Vector2d calculateUpperBound() {
-        Vector2d UPPER_BOUND = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-
-        for (Animal animal: animals.values()){
-            UPPER_BOUND = UPPER_BOUND.upperRight(animal.getPosition());
-        }
-
-        for (Grass grass: grass_list.values()){
-            UPPER_BOUND = UPPER_BOUND.upperRight(grass.getPosition());
-        }
-        return UPPER_BOUND;
+    public Vector2d calculateUpperBound() {
+        return bounds.getUpperBoundaries();
     }
+//        Vector2d UPPER_BOUND = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
+//
+//        for (Animal animal: animals.values()){
+//            UPPER_BOUND = UPPER_BOUND.upperRight(animal.getPosition());
+//        }
+//
+//        for (Grass grass: grassHashMap.values()){
+//            UPPER_BOUND = UPPER_BOUND.upperRight(grass.getPosition());
+//        }
+//        return UPPER_BOUND;
+//    }
 }

@@ -14,9 +14,17 @@ public class GrassFieldTest {
     @Test
     void placeTest() {
         IWorldMap map = new GrassField(4);
-        Vector2d position = new Vector2d(1, 1);
-        Animal animal = new Animal(map, position);
-        Assertions.assertTrue(map.place(animal));
+
+        Vector2d position = new Vector2d(2,3);
+        Animal ant = new Animal(map, position);
+        Animal bee = new Animal(map, new Vector2d(-20, -30));
+        Animal cat = new Animal(map, position);
+
+        Assertions.assertTrue(map.place(ant));
+        Assertions.assertTrue(map.place(bee));
+
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () ->  map.place(cat) );
+        Assertions.assertEquals("position (2,3) is occupied", exception.getMessage());
     }
 
     @Test

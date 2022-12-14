@@ -7,7 +7,7 @@ public class SimulationEngine implements IEngine{
     protected final IWorldMap map;
     protected Vector2d[] positions;
 
-    protected SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions){
+    public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions){
         this.directions = directions;
         this.map = map;
         this.positions = positions;
